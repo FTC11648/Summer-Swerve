@@ -51,7 +51,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  */
 
 @TeleOp(name="H Drive", group="Pushbot")
-@Disabled
+//@Disabled
 public class HDrive extends LinearOpMode {
 
     /* Declare OpMode members. */
