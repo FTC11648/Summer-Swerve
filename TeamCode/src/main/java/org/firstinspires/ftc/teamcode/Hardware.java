@@ -45,11 +45,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * This hardware class assumes the following device names have been configured on the robot:
  * Note:  All names are lower case and some have single spaces between words.
  *
- * Motor channel:  Left  drive motor:        "left_drive"
+ * Motor channel:  Left drive motor:         "left_drive"
  * Motor channel:  Right drive motor:        "right_drive"
- * Motor channel:  Manipulator drive motor:  "left_arm"
- * Servo channel:  Servo to open left claw:  "left_hand"
- * Servo channel:  Servo to open right claw: "right_hand"
+ * Motor channel:  Center drive motor:       "center_drive"
+ * Servo channel:  Left Servo for four bar:  "left_arm"
+ * Servo channel:  Right Servo for four bar: "right_arm"
  */
 public class Hardware
 {
@@ -69,14 +69,15 @@ public class Hardware
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public Hardware(){
+    public Hardware(HardwareMap hwMap){
 
+        this.hwMap = hwMap;
+        initDriveTrain();
+        initFourBar();
     }
 
     /* Initialize standard Hardware interfaces */
-    public void init(HardwareMap ahwMap) {
-        // Save reference to Hardware map
-        hwMap = ahwMap;
+    private void initDriveTrain() {
 
         // Define and Initialize Motors
         leftDrive  = hwMap.get(DcMotor.class, "left_drive");
@@ -97,6 +98,10 @@ public class Hardware
         rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         centerDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+
+    }
+    public void initFourBar()
+    {
         // Define and initialize ALL installed servos.
         leftArm  = hwMap.get(Servo.class, "left_arm");
         rightArm = hwMap.get(Servo.class, "right_arm");

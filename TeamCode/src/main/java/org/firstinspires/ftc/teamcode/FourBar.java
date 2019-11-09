@@ -32,6 +32,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
@@ -52,57 +54,51 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 @TeleOp(name="FourBar", group="Pushbot")
 //@Disabled
-public class FourBar extends LinearOpMode {
+public class FourBar implements Subsystem {
 
+
+    Gamepad gamepad2;
+    Servo leftArm;
+    Servo rightArm;
+    Servo clampIntake;
     /* Declare OpMode members. */
-    Hardware robot           = new Hardware();   // Use a Pushbot's hardware
     double          armOffset      = 0;                       // Servo mid position
     double          clampIntakeOffset = 0;                      // Claw mid position
     final double    ARM_SPEED      = 0.02 ;                   // sets rate to move
     final double    CLAMP_SPEED      = 0.02;                    // sets rate to move
 
+    public FourBar(Gamepad gamepad2, Servo leftArm, Servo rightArm, Servo clampIntake)
+    {
+        this.gamepad2 = gamepad2;
+        this.leftArm = leftArm;
+        this.rightArm = rightArm;
+        this.clampIntake = clampIntake;
+    }
     @Override
-    public void runOpMode() {
+    public void init() {
 
-        /* Initialize the hardware variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
+    }
 
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");    //
-        telemetry.update();
-
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive())
+    @Override
+    public void update  () {
 
 
             // Use gamepad left & right Bumpers to open and close the claw
-            if (gamepad1.right_bumper)
+            if (gamepad2.right_bumper)
                 armOffset += ARM_SPEED;
-            else if (gamepad1.left_bumper)
+            else if (gamepad2.left_bumper)
                 armOffset -= ARM_SPEED;
 
-        if(gamepad1.dpad_up)
+        if(gamepad2.dpad_up)
             clampIntakeOffset += CLAMP_SPEED;
-        else if(gamepad1.dpad_down)
+        else if(gamepad2.dpad_down)
             clampIntakeOffset -= CLAMP_SPEED;
 
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
         armOffset = Range.clip(armOffset, -0.5, 0.5);
-        robot.leftArm.setPosition(0 + armOffset);
-        robot.rightArm.setPosition(0 - armOffset);
-        robot.clampIntake.setPosition(0 + clampIntakeOffset);
-
-        // Send telemetry message to signify robot running;
-        telemetry.addData("clamp",  "Offset = %.2f", armOffset);
-        telemetry.update();
-
-        // Pace this loop so jaw action is reasonable speed.
-        sleep(50);
+        leftArm.setPosition(0 + armOffset);
+        rightArm.setPosition(0 - armOffset);
+        clampIntake.setPosition(0 + clampIntakeOffset);
     }
 }

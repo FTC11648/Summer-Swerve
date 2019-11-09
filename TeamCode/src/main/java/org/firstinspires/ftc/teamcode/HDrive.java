@@ -32,6 +32,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Gamepad;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
@@ -52,14 +55,33 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 
 @TeleOp(name="H Drive", group="Pushbot")
 //@Disabled
-public class HDrive extends LinearOpMode {
+public class HDrive implements Subsystem {
 
+    Gamepad gamepad1;
+    DcMotor leftDrive;
+    DcMotor rightDrive;
+    DcMotor centerDrive;
     /* Declare OpMode members. */
-    Hardware        robot           = new Hardware();          // Use hardware
+
+    public HDrive(Gamepad gamepad1, DcMotor leftDrive,DcMotor rightDrive,DcMotor centerDrive)
+    {
+        this.gamepad1 = gamepad1;
+
+        this.leftDrive = leftDrive;
+        this.rightDrive = rightDrive;
+        this.centerDrive = centerDrive;
+
+    }
 
 
     @Override
-    public void runOpMode() {
+    public void init() {
+
+
+    }
+
+    @Override
+    public void update() {
         double left;
         double right;
         double center;
@@ -68,55 +90,26 @@ public class HDrive extends LinearOpMode {
         double turn;
         double max;
 
-        /* Initialize the hardware variables.
-         * The init() method of the hardware class does all the work here
-         */
-        robot.init(hardwareMap);
+        driveVertical = -gamepad1.left_stick_y;
+        driveHorizontal = gamepad1.left_stick_x;
+        turn  =  gamepad1.right_stick_x;
 
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "Hello Driver");
-        telemetry.update();
+        // Combine drive and turn for blended motion.
+        left  = driveVertical + turn;
+        right = driveVertical - turn;
+        center = driveHorizontal;
 
-        // Wait for the game to start (driver presses PLAY)
-        waitForStart();
-
-        // run until the end of the match (driver presses STOP)
-        while (opModeIsActive()) {
-
-            // Run wheels in POV mode (note: The joystick goes negative when pushed forwards, so negate it)
-            // In this mode the Left stick moves the robot fwd and back, the Right stick turns left and right.
-            // This way it's also easy to just drive straight, or just turn.
-            driveVertical = -gamepad1.left_stick_y;
-            driveHorizontal = gamepad1.left_stick_x;
-            turn  =  gamepad1.right_stick_x;
-
-            // Combine drive and turn for blended motion.
-            left  = driveVertical + turn;
-            right = driveVertical - turn;
-            center = driveHorizontal;
-
-            // Normalize the values so neither exceed +/- 1.0
-            max = Math.max(Math.abs(left), Math.abs(right));
-            if (max > 1.0)
-            {
-                left /= max;
-                right /= max;
-            }
-
-            // Output the safe vales to the motor drives.
-            robot.leftDrive.setPower(left);
-            robot.rightDrive.setPower(right);
-            robot.centerDrive.setPower(center);
-
-
-            // Send telemetry message to signify robot running;
-            telemetry.addData("left",  "%.2f", left);
-            telemetry.addData("right", "%.2f", right);
-            telemetry.addData("center", "%.2f", center);
-            telemetry.update();
-
-            // Pace this loop so jaw action is reasonable speed.
-            sleep(50);
+        // Normalize the values so neither exceed +/- 1.0
+        max = Math.max(Math.abs(left), Math.abs(right));
+        if (max > 1.0)
+        {
+            left /= max;
+            right /= max;
         }
+
+        // Output the safe vales to the motor drives.
+        leftDrive.setPower(left);
+        rightDrive.setPower(right);
+        centerDrive.setPower(center);
     }
 }
