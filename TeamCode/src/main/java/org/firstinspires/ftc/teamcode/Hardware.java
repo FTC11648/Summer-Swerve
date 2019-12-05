@@ -35,6 +35,8 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import java.util.concurrent.locks.Lock;
+
 /**
  * This is NOT an opmode.
  *
@@ -73,7 +75,7 @@ public class Hardware
 
         this.hwMap = hwMap;
         initDriveTrain();
-        initFourBar();
+        //initFourBar();
     }
 
     /* Initialize standard Hardware interfaces */
@@ -84,10 +86,12 @@ public class Hardware
         rightDrive = hwMap.get(DcMotor.class, "right_drive");
         centerDrive = hwMap.get(DcMotor.class, "center_drive");
 
-
-        leftDrive.setDirection(DcMotor.Direction.FORWARD);
+        leftDrive.setDirection(DcMotor.Direction.REVERSE);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
-        centerDrive.setDirection(DcMotor.Direction.FORWARD); //Set so positive is right and negative is left
+        centerDrive.setDirection(DcMotor.Direction.REVERSE); //Set so positive is right and negative is left
+
+        centerDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         // Set all motors to zero power
         leftDrive.setPower(0);
         rightDrive.setPower(0);
@@ -100,7 +104,8 @@ public class Hardware
 
 
     }
-    public void initFourBar()
+
+    /*public void initFourBar()
     {
         // Define and initialize ALL installed servos.
         leftArm  = hwMap.get(Servo.class, "left_arm");
@@ -109,6 +114,6 @@ public class Hardware
         leftArm.setPosition(MID_SERVO);
         rightArm.setPosition(MID_SERVO);
         clampIntake.setPosition(MID_SERVO);
-    }
+    }*/
  }
 
