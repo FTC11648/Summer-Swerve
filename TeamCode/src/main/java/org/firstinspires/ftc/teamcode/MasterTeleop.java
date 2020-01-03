@@ -47,7 +47,7 @@ public class MasterTeleop extends OpMode {
   private ElapsedTime runtime = new ElapsedTime();
 
   Subsystem HDrive;
-  //Subsystem FourBar;
+  Subsystem FourBar;
   Gamepad gamepad;
   Hardware hardware;
 
@@ -57,7 +57,7 @@ public class MasterTeleop extends OpMode {
     hardware = new Hardware(hardwareMap);
 
     HDrive = new HDrive(gamepad1, hardware.leftDrive, hardware.rightDrive, hardware.centerDrive);
-    //Subsystem FourBar = new FourBar(gamepad2, hardware.leftArm, hardware.rightArm, hardware.clampIntake);
+    FourBar = new FourBar(gamepad2, hardware.leftArm, hardware.rightArm, hardware.clampIntake);
   }
 
   /*
@@ -87,7 +87,7 @@ public class MasterTeleop extends OpMode {
     telemetry.addData("Status", "Run Time: " + runtime.toString());
 
     HDrive.update();
-    //FourBar.update();
+    FourBar.update();
 
 
   }

@@ -105,7 +105,7 @@ public class Hardware
 
     }
 
-    /*public void initFourBar()
+    public void initFourBar()
     {
         // Define and initialize ALL installed servos.
         leftArm  = hwMap.get(Servo.class, "left_arm");
@@ -114,6 +114,6 @@ public class Hardware
         leftArm.setPosition(MID_SERVO);
         rightArm.setPosition(MID_SERVO);
         clampIntake.setPosition(MID_SERVO);
-    }*/
+    }
  }
 
