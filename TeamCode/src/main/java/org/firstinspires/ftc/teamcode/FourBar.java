@@ -59,10 +59,11 @@ public class FourBar implements Subsystem {
     Gamepad gamepad2;
     Servo leftArm;
     Servo rightArm;
-    Servo clampIntake;
+    Servo clampLeft;
+    Servo clampRight;
     /* Declare OpMode members. */
     double          armOffset      = 0;                       // Servo mid position
-    double          clampIntakeOffset = 0;                      // Claw mid position
+    double          clampOffset = 0;                      // Claw mid position
     final double    ARM_SPEED      = 0.02 ;                   // sets rate to move
     final double    CLAMP_SPEED      = 0.02;                    // sets rate to move
 
@@ -71,7 +72,7 @@ public class FourBar implements Subsystem {
         this.gamepad2 = gamepad2;
         this.leftArm = leftArm;
         this.rightArm = rightArm;
-        this.clampIntake = clampIntake;
+        this.clampLeft = clampLeft;
     }
     @Override
     public void init() {
@@ -89,15 +90,20 @@ public class FourBar implements Subsystem {
                 armOffset -= ARM_SPEED;
 
         if(gamepad2.dpad_up)
-            clampIntakeOffset += CLAMP_SPEED;
+            clampOffset += CLAMP_SPEED;
         else if(gamepad2.dpad_down)
-            clampIntakeOffset -= CLAMP_SPEED;
+            clampOffset -= CLAMP_SPEED;
+        else
+            clampOffset = 0;
 
 
         // Move both servos to new position.  Assume servos are mirror image of each other.
-        armOffset = Range.clip(armOffset, -0.5, 0.5);
-        leftArm.setPosition(0 + armOffset);
-        rightArm.setPosition(0 - armOffset);
-        clampIntake.setPosition(0 + clampIntakeOffset);
+
+        leftArm.setPosition(armOffset);
+        rightArm.setPosition(armOffset);
+        clampLeft.setPosition(0 + clampOffset);
+        clampRight.setPosition(0 + clampOffset);
+
+
     }
 }

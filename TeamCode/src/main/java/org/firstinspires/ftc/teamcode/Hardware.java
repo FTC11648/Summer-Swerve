@@ -62,7 +62,8 @@ public class Hardware
 
     public Servo    rightArm    = null;
     public Servo    leftArm     = null;
-    public Servo    clampIntake = null;
+    public Servo    clampLeft = null;
+    public Servo    clampRight = null;
 
     public static final double MID_SERVO         =  0.5 ;
 
@@ -110,10 +111,13 @@ public class Hardware
         // Define and initialize ALL installed servos.
         leftArm  = hwMap.get(Servo.class, "left_arm");
         rightArm = hwMap.get(Servo.class, "right_arm");
-        clampIntake = hwMap.get(Servo.class, "clamp_intake");
+        clampLeft = hwMap.get(Servo.class, "clamp_left");
+        clampRight = hwMap.get(Servo.class, "clamp_right");
+
         leftArm.setPosition(MID_SERVO);
         rightArm.setPosition(MID_SERVO);
-        clampIntake.setPosition(MID_SERVO);
+        clampLeft.setPosition(MID_SERVO);
+        clampRight.setPosition(MID_SERVO);
     }
  }
 
