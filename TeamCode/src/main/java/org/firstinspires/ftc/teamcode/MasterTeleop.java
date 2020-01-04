@@ -57,7 +57,7 @@ public class MasterTeleop extends OpMode {
     hardware = new Hardware(hardwareMap);
 
     HDrive = new HDrive(gamepad1, hardware.leftDrive, hardware.rightDrive, hardware.centerDrive);
-    FourBar = new FourBar(gamepad2, hardware.leftArm, hardware.rightArm, hardware.clampIntake);
+    FourBar = new FourBar(gamepad2, hardware.leftArm, hardware.rightArm, hardware.clampLeft, hardware.clampRight);
   }
 
   /*
@@ -85,6 +85,7 @@ public class MasterTeleop extends OpMode {
   @Override
   public void loop() {
     telemetry.addData("Status", "Run Time: " + runtime.toString());
+    telemetry.addData()
 
     HDrive.update();
     FourBar.update();

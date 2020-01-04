@@ -34,6 +34,8 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+
 
 import java.util.concurrent.locks.Lock;
 
@@ -65,6 +67,8 @@ public class Hardware
     public Servo    clampLeft = null;
     public Servo    clampRight = null;
 
+    public BNO055IMU imu = null;
+
     public static final double MID_SERVO         =  0.5 ;
 
     /* local OpMode members. */
@@ -80,7 +84,7 @@ public class Hardware
     }
 
     /* Initialize standard Hardware interfaces */
-    private void initDriveTrain() {
+    public void initDriveTrain() {
 
         // Define and Initialize Motors
         leftDrive  = hwMap.get(DcMotor.class, "left_drive");
@@ -102,6 +106,16 @@ public class Hardware
         leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         centerDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = false;
+
+        imu.initialize(parameters);
+
 
 
     }

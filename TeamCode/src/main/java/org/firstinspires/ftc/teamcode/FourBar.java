@@ -67,12 +67,13 @@ public class FourBar implements Subsystem {
     final double    ARM_SPEED      = 0.02 ;                   // sets rate to move
     final double    CLAMP_SPEED      = 0.02;                    // sets rate to move
 
-    public FourBar(Gamepad gamepad2, Servo leftArm, Servo rightArm, Servo clampIntake)
+    public FourBar(Gamepad gamepad2, Servo leftArm, Servo rightArm, Servo clampLeft, Servo clampRight)
     {
         this.gamepad2 = gamepad2;
         this.leftArm = leftArm;
         this.rightArm = rightArm;
         this.clampLeft = clampLeft;
+        this.clampRight = clampRight;
     }
     @Override
     public void init() {

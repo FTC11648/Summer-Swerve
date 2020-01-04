@@ -47,13 +47,14 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class BlockToBridgeBLUE extends LinearOpMode {
 
     /* Declare OpMode members. */
-    Hardware robot = new Hardware();   // Use a Pushbot's hardware
+    Hardware robot = new Hardware(hardwareMap);   // Use a Pushbot's hardware
     RobotMover robotMover;
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
-        robot.init(hardwareMap);
+        robot.initDriveTrain();
+        robot.initFourBar();
 
         robotMover = new RobotMover(robot.leftDrive, robot.rightDrive, robot.centerDrive, robot.imu);
 
