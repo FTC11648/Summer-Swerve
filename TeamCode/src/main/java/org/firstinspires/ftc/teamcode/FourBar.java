@@ -52,7 +52,7 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Disabled
+
 public class FourBar implements Subsystem {
 
 
@@ -62,7 +62,7 @@ public class FourBar implements Subsystem {
     Servo clampLeft;
     Servo clampRight;
     /* Declare OpMode members. */
-    double          armOffset      = 0;                       // Servo mid position
+    public double   armOffset      = 0.17;                       // Servo mid position
     double          clampOffset = 0;                      // Claw mid position
     final double    ARM_SPEED      = 0.02 ;                   // sets rate to move
     final double    CLAMP_SPEED      = 0.02;                    // sets rate to move
@@ -81,30 +81,36 @@ public class FourBar implements Subsystem {
     }
 
     @Override
-    public void update  () {
+        public void update  () {
 
 
-            // Use gamepad left & right Bumpers to open and close the claw
-            if (gamepad2.right_bumper)
-                armOffset += ARM_SPEED;
-            else if (gamepad2.left_bumper)
-                armOffset -= ARM_SPEED;
+                // Use gamepad left & right Bumpers to open and close the claw
+                if (gamepad2.right_bumper) {
+                    armOffset = armOffset + ARM_SPEED;
+                    leftArm.setPosition(armOffset);
+                    rightArm.setPosition(armOffset);
+                }
+                else if (gamepad2.left_bumper) {
+                    armOffset = armOffset + ARM_SPEED;
+                    leftArm.setPosition(armOffset);
+                    rightArm.setPosition(armOffset);
+                }
 
-        if(gamepad2.dpad_up)
-            clampOffset += CLAMP_SPEED;
-        else if(gamepad2.dpad_down)
-            clampOffset -= CLAMP_SPEED;
-        else
-            clampOffset = 0;
+            if(gamepad2.dpad_up) {
+                clampOffset = clampOffset + CLAMP_SPEED;
+                clampLeft.setPosition(0 + clampOffset);
+                clampRight.setPosition(0 + clampOffset);
+            }
+            else if(gamepad2.dpad_down) {
+                clampOffset = clampOffset - CLAMP_SPEED;
+                clampLeft.setPosition(0 + clampOffset);
+                clampRight.setPosition(0 + clampOffset);
+            }
 
 
-        // Move both servos to new position.  Assume servos are mirror image of each other.
-
-        leftArm.setPosition(armOffset);
-        rightArm.setPosition(armOffset);
-        clampLeft.setPosition(0 + clampOffset);
-        clampRight.setPosition(0 + clampOffset);
 
 
-    }
+
+
+        }
 }

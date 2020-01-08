@@ -85,7 +85,11 @@ public class MasterTeleop extends OpMode {
   @Override
   public void loop() {
     telemetry.addData("Status", "Run Time: " + runtime.toString());
-    telemetry.addData()
+    telemetry.addData("left running", + hardware.leftArm.getPosition());
+    telemetry.addData("right running", + hardware.rightArm.getPosition());
+    telemetry.addData("left running clamp", + hardware.clampLeft.getPosition());
+    telemetry.addData("right running clamp", + hardware.clampRight.getPosition());
+
 
     HDrive.update();
     FourBar.update();

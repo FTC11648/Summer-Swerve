@@ -80,7 +80,7 @@ public class Hardware
 
         this.hwMap = hwMap;
         initDriveTrain();
-        //initFourBar();
+        initFourBar();
     }
 
     /* Initialize standard Hardware interfaces */
@@ -90,6 +90,8 @@ public class Hardware
         leftDrive  = hwMap.get(DcMotor.class, "left_drive");
         rightDrive = hwMap.get(DcMotor.class, "right_drive");
         centerDrive = hwMap.get(DcMotor.class, "center_drive");
+
+        imu = hwMap.get(BNO055IMU.class, "imu");
 
         leftDrive.setDirection(DcMotor.Direction.REVERSE);
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
@@ -128,10 +130,12 @@ public class Hardware
         clampLeft = hwMap.get(Servo.class, "clamp_left");
         clampRight = hwMap.get(Servo.class, "clamp_right");
 
-        leftArm.setPosition(MID_SERVO);
-        rightArm.setPosition(MID_SERVO);
-        clampLeft.setPosition(MID_SERVO);
-        clampRight.setPosition(MID_SERVO);
+
+
+        clampLeft.setDirection(Servo.Direction.REVERSE);
+
+        leftArm.setPosition(0.17);
+        rightArm.setPosition(0.17);
     }
  }
 
