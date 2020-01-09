@@ -63,9 +63,9 @@ public class FourBar implements Subsystem {
     Servo clampRight;
     /* Declare OpMode members. */
     public double   armOffset      = 0.17;                       // Servo mid position
-    double          clampOffset = 0;                      // Claw mid position
-    final double    ARM_SPEED      = 0.02 ;                   // sets rate to move
-    final double    CLAMP_SPEED      = 0.02;                    // sets rate to move
+    public double   clampOffset = 0;                      // Claw mid position
+    final double    ARM_SPEED      = 0.0006 ;                   // sets rate to move
+    final double    CLAMP_SPEED      = 0.002;                    // sets rate to move
 
     public FourBar(Gamepad gamepad2, Servo leftArm, Servo rightArm, Servo clampLeft, Servo clampRight)
     {
@@ -74,6 +74,8 @@ public class FourBar implements Subsystem {
         this.rightArm = rightArm;
         this.clampLeft = clampLeft;
         this.clampRight = clampRight;
+
+
     }
     @Override
     public void init() {
@@ -82,35 +84,33 @@ public class FourBar implements Subsystem {
 
     @Override
         public void update  () {
-
+                armOffset = leftArm.getPosition();
 
                 // Use gamepad left & right Bumpers to open and close the claw
-                if (gamepad2.right_bumper) {
+                if (gamepad2.y) {
                     armOffset = armOffset + ARM_SPEED;
+                    armOffset = Range.clip(armOffset, 0.17, 0.76);
                     leftArm.setPosition(armOffset);
                     rightArm.setPosition(armOffset);
                 }
-                else if (gamepad2.left_bumper) {
-                    armOffset = armOffset + ARM_SPEED;
+                else if (gamepad2.a) {
+                    armOffset = armOffset - ARM_SPEED;
+                    armOffset = Range.clip(armOffset, 0.20, 0.76);
                     leftArm.setPosition(armOffset);
                     rightArm.setPosition(armOffset);
                 }
 
             if(gamepad2.dpad_up) {
                 clampOffset = clampOffset + CLAMP_SPEED;
+                clampOffset = Range.clip(clampOffset, -0.8, 0.6 );
                 clampLeft.setPosition(0 + clampOffset);
                 clampRight.setPosition(0 + clampOffset);
             }
             else if(gamepad2.dpad_down) {
                 clampOffset = clampOffset - CLAMP_SPEED;
+                clampOffset = Range.clip(clampOffset, -0.8, 0.6);
                 clampLeft.setPosition(0 + clampOffset);
                 clampRight.setPosition(0 + clampOffset);
             }
-
-
-
-
-
-
         }
 }
