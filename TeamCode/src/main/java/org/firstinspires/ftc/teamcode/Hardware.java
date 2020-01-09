@@ -67,6 +67,8 @@ public class Hardware
     public Servo    clampLeft = null;
     public Servo    clampRight = null;
 
+    public Servo Lights = null;
+
     public BNO055IMU imu = null;
 
     public static final double MID_SERVO         =  0.5 ;
@@ -81,6 +83,7 @@ public class Hardware
         this.hwMap = hwMap;
         initDriveTrain();
         initFourBar();
+        initBlinkin();
     }
 
     /* Initialize standard Hardware interfaces */
@@ -139,5 +142,18 @@ public class Hardware
 
         //leftArm.setPosition();
     }
+    public void initBlinkin(){
+    //Defines the LED which should be set to servos.
+        Lights = hwMap.get(Servo.class, "blinkin");
+
+    }
+
+
+
+
+
+
+
+
  }
 
