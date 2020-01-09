@@ -86,31 +86,67 @@ public class FourBar implements Subsystem {
         public void update  () {
                 armOffset = leftArm.getPosition();
 
-                // Use gamepad left & right Bumpers to open and close the claw
-                if (gamepad2.y) {
-                    armOffset = armOffset + ARM_SPEED;
-                    armOffset = Range.clip(armOffset, 0.17, 0.76);
-                    leftArm.setPosition(armOffset);
-                    rightArm.setPosition(armOffset);
-                }
-                else if (gamepad2.a) {
-                    armOffset = armOffset - ARM_SPEED;
-                    armOffset = Range.clip(armOffset, 0.20, 0.76);
-                    leftArm.setPosition(armOffset);
-                    rightArm.setPosition(armOffset);
-                }
+            // Four bar movement
+            if (gamepad2.right_bumper) {
+                armOffset = armOffset + ARM_SPEED;
+                armOffset = Range.clip(armOffset, 0.243, 0.76);
+                leftArm.setPosition(armOffset);
+                rightArm.setPosition(armOffset);
+            }
+            else if (gamepad2.left_bumper) {
+                armOffset = armOffset - ARM_SPEED;
+                armOffset = Range.clip(armOffset, 0.243, 0.76);
+                leftArm.setPosition(armOffset);
+                rightArm.setPosition(armOffset);
+            }
+            else if (gamepad2.a) {
+                armOffset = 0.243;
+                leftArm.setPosition(armOffset);
+                rightArm.setPosition(armOffset);
+            }
+            else if (gamepad2.b) {
+                armOffset = 0.33;
+                leftArm.setPosition(armOffset);
+                rightArm.setPosition(armOffset);
+            }
+            else if (gamepad2.y) {
+                armOffset = 0.375;
+                leftArm.setPosition(armOffset);
+                rightArm.setPosition(armOffset);
+            }
+            else if (gamepad2.x) {
+                armOffset = 0.42;
+                leftArm.setPosition(armOffset);
+                rightArm.setPosition(armOffset);
+            }
 
-            if(gamepad2.dpad_up) {
+
+
+
+
+            //Clamp movement
+            else if(gamepad2.dpad_right) {
                 clampOffset = clampOffset + CLAMP_SPEED;
                 clampOffset = Range.clip(clampOffset, -0.8, 0.6 );
                 clampLeft.setPosition(0 + clampOffset);
                 clampRight.setPosition(0 + clampOffset);
             }
-            else if(gamepad2.dpad_down) {
+            else if(gamepad2.dpad_left) {
                 clampOffset = clampOffset - CLAMP_SPEED;
                 clampOffset = Range.clip(clampOffset, -0.8, 0.6);
                 clampLeft.setPosition(0 + clampOffset);
                 clampRight.setPosition(0 + clampOffset);
             }
+            else if (gamepad2.dpad_up) {
+                clampOffset = 0.6;
+                clampLeft.setPosition(clampOffset);
+                clampRight.setPosition(clampOffset);
+            }
+            else if (gamepad2.dpad_down) {
+                clampOffset = -0.8;
+                clampLeft.setPosition(clampOffset);
+                clampRight.setPosition(clampOffset);
+            }
+
         }
 }
