@@ -56,7 +56,7 @@ public class FoundationRED extends LinearOpMode {
         robot.initDriveTrain();
         robot.initFourBar();
 
-        robotMover = new RobotMover(robot.leftDrive, robot.rightDrive, robot.centerDrive, robot.imu);
+        robotMover = new RobotMover(robot.leftDrive, robot.rightDrive, robot.centerDrive, robot.imu, robot.leftArm,robot.rightArm, robot.clampRight, robot.clampLeft);
 
         // Send telemetry message to signify robot waiting;
 
@@ -82,8 +82,14 @@ public class FoundationRED extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
+        robotMover.grab(robot.RELEASE_POSITION);
+        sleep(500);
 
         robotMover.encoderDrive(0.6, 31.5, 31.5, 0); // forward 31.5 inches
+
+        robotMover.grab(robot.GRAB_POSITION);
+        sleep(500);
+
         robotMover.encoderDrive(0.6, -31.5, -31.5, 0); // reverse 31.5 inches
         robotMover.encoderDrive(0.6,0,0,30); // left 30
     }

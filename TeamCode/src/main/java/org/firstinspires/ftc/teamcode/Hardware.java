@@ -70,6 +70,8 @@ public class Hardware
     public BNO055IMU imu = null;
 
     public static final double MID_SERVO         =  0.5 ;
+    public final double GRAB_POSITION = 0.6;
+    public final double RELEASE_POSITION = -0.8;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -12,6 +13,10 @@ public class RobotMover {
     DcMotor leftDrive;
     DcMotor rightDrive;
     DcMotor centerDrive;
+    Servo leftArm;
+    Servo rightArm;
+    Servo clampLeft;
+    Servo clampRight;
     BNO055IMU imu;
 
     public Orientation lastAngles = new Orientation();
@@ -24,14 +29,17 @@ public class RobotMover {
             (WHEEL_DIAMETER_INCHES * Math.PI);
     /* Declare OpMode members. */
 
-    public RobotMover(DcMotor leftDrive, DcMotor rightDrive, DcMotor centerDrive, BNO055IMU imu)
+    public RobotMover(DcMotor leftDrive, DcMotor rightDrive, DcMotor centerDrive, BNO055IMU imu, Servo leftArm, Servo rightArm, Servo clampRight, Servo clampLeft)
     {
         this.imu = imu;
 
         this.leftDrive = leftDrive;
         this.rightDrive = rightDrive;
         this.centerDrive = centerDrive;
-
+        this.leftArm = leftArm;
+        this.rightArm = rightArm;
+        this.clampLeft = clampLeft;
+        this.clampRight = clampRight;
     }
 
     //Sets global angle to 0
@@ -39,6 +47,16 @@ public class RobotMover {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         globalAngle = 0;
 
+    }
+
+    public void arm(double armPosition) {
+        leftArm.setPosition(armPosition);
+        rightArm.setPosition(armPosition);
+    }
+
+    public void grab(double grabberPosition) {
+            leftArm.setPosition(grabberPosition);
+        rightArm.setPosition(grabberPosition);
     }
 
     //Returns global angle
