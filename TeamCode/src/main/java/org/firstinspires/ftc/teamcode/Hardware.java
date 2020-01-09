@@ -139,8 +139,8 @@ public class Hardware
 
         clampLeft.setDirection(Servo.Direction.REVERSE);
 
-        leftArm.setPosition(0.20);
-        rightArm.setPosition(0.20);
+        leftArm.setPosition(0.243);
+        rightArm.setPosition(0.243);
 
         //leftArm.setPosition();
     }
