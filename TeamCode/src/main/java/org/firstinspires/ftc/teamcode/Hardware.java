@@ -85,7 +85,7 @@ public class Hardware
         this.hwMap = hwMap;
         initDriveTrain();
         initFourBar();
-        initBlinkin();
+        //initBlinkin();
     }
 
     /* Initialize standard Hardware interfaces */
