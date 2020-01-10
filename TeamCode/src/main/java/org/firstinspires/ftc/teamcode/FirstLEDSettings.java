@@ -62,7 +62,6 @@ public class FirstLEDSettings extends OpMode {
      */
     private final static int LED_PERIOD = 100;
     ElapsedTime runtime = new ElapsedTime();
-    boolean istrue=false;
     /*
      * Rate limit gamepad button presses to every 500ms.
      */
@@ -115,7 +114,7 @@ if(runtime.seconds() > 5 && istrue){
 }
 
        */
-        handleGamepad(); //Colors switch due to Gamepad touch
+        update(); //Colors switch due to Gamepad touch
 
         if (displayKind == DisplayKind.AUTO) {
             doAutoDisplay();
@@ -138,7 +137,7 @@ if(runtime.seconds() > 5 && istrue){
      * A: Manual mode, Right bumper displays the next pattern, left bumper displays the previous pattern.
      * B: Auto mode, pattern cycles, changing every LED_PERIOD seconds.
      */
-    protected void handleGamepad()
+    protected void update()
     {
         /*if (!gamepadRateLimit.hasExpired()) {
             return;

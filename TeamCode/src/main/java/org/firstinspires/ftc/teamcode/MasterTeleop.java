@@ -50,6 +50,7 @@ public class MasterTeleop extends OpMode {
   HDrive HDrive;
   DriftDrive driftDrive;
   FourBar FourBar;
+  LEDSettings LEDSettings;
   Gamepad gamepad;
   Hardware hardware;
 
@@ -98,6 +99,7 @@ public class MasterTeleop extends OpMode {
 
     HDrive.update();
     FourBar.update();
+
     //driftDrive.update();
 
 

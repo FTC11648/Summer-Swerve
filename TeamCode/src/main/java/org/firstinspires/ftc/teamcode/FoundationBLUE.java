@@ -29,17 +29,23 @@ public class FoundationBLUE extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        robotMover.grab(robot.RELEASE_POSITION);
+        robotMover.clampLeft.setPosition(0.6);
+        robotMover.clampRight.setPosition(0.6);
         sleep(500);
 
         //Do the course
         robotMover.encoderDrive(0.6, 31.5, 31.5, 0);
 
         //Grab foundation
-        robotMover.grab(robot.GRAB_POSITION);
+        robotMover.clampLeft.setPosition(-0.8);
+        robotMover.clampRight.setPosition(-0.8);
         sleep(500);
 
         robotMover.encoderDrive(0.6, -31.5, -31.5, 0);
-        robotMover.encoderDrive(0.6, 0, 0, 30);
+
+        robotMover.clampLeft.setPosition(0.6);
+        robotMover.clampRight.setPosition(0.6);
+
+        robotMover.encoderDrive(0.6, 0, 0, -50);
     }
 }

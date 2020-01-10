@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -18,6 +20,7 @@ public class RobotMover {
     Servo clampLeft;
     Servo clampRight;
     BNO055IMU imu;
+    ElapsedTime runtime = new ElapsedTime();
 
     public Orientation lastAngles = new Orientation();
     public double globalAngle;
@@ -217,9 +220,11 @@ public class RobotMover {
         rightDrive.setPower(Math.abs(speed)+correction);
         centerDrive.setPower(Math.abs(speed));
 
-        while((Math.abs(leftDrive.getCurrentPosition()-newLeftTarget))>2 ||
+        runtime.reset();
+
+        while(((Math.abs(leftDrive.getCurrentPosition()-newLeftTarget))>2 ||
                 (Math.abs(centerDrive.getCurrentPosition()-newCenterTarget))>2 ||
-                (Math.abs(rightDrive.getCurrentPosition()-newRightTarget))>2 ) {
+                (Math.abs(rightDrive.getCurrentPosition()-newRightTarget))>2) && runtime.seconds()<5 ) {
             correction = getCorrection();
 
             leftDrive.setPower(Math.abs(speed));

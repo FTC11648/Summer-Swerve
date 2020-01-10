@@ -85,7 +85,9 @@ public class BlockToFoundationRED extends LinearOpMode {
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
 
         //robotMover.encoderDrive(0.6, 31.5, 31.5, 0);
-        robotMover.grab(robot.RELEASE_POSITION);
+        robotMover.clampRight.setPosition(0.6);
+        robotMover.clampLeft.setPosition(0.6);
+
         sleep(500);
 
         robotMover.encoderDrive(0.6, 31.5, 31.5, 0); // forward 31.5 inches

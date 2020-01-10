@@ -65,7 +65,7 @@ public class FourBar implements Subsystem {
     public double   armOffset      = 0.17;                       // Servo mid position
     public double   clampOffset = 0;                      // Claw mid position
     final double    ARM_SPEED      = 0.0006 ;                   // sets rate to move
-    final double    CLAMP_SPEED      = 0.002;                    // sets rate to move
+    final double    CLAMP_SPEED      = 0.005;                    // sets rate to move
 
     public FourBar(Gamepad gamepad2, Servo leftArm, Servo rightArm, Servo clampLeft, Servo clampRight)
     {
