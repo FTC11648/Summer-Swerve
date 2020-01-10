@@ -47,12 +47,13 @@ import org.firstinspires.ftc.robotcontroller.external.samples.HardwarePushbot;
 public class FoundationRED extends LinearOpMode {
 
     /* Declare OpMode members. */
-    Hardware robot = new Hardware(hardwareMap);   // Use a Pushbot's hardware
+    Hardware robot;
     RobotMover robotMover;
     private ElapsedTime runtime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
+        robot = new Hardware(hardwareMap);
         robot.initDriveTrain();
         robot.initFourBar();
 

@@ -141,8 +141,9 @@ public class Hardware
 
         leftArm.setPosition(0.243);
         rightArm.setPosition(0.243);
+        clampLeft.setPosition(0.6);
+        clampRight.setPosition(0.6);
 
-        //leftArm.setPosition();
     }
     public void initBlinkin(){
     //Defines the LED which should be set to servos.

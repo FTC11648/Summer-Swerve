@@ -14,11 +14,12 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous
 public class BlockToBridgeRED extends LinearOpMode {
-    Hardware robot = new Hardware(hardwareMap); // Use hardware
+    Hardware robot;
     RobotMover robotMover;
 
     @Override
     public void runOpMode() {
+        robot = new Hardware(hardwareMap);
         robot.initDriveTrain();
         robot.initFourBar();
 

@@ -8,11 +8,12 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 @Autonomous(name="Foundation(BLUE)", group="Pushbot")
 
 public class FoundationBLUE extends LinearOpMode {
-    Hardware robot = new Hardware(hardwareMap); // Use hardware
+    Hardware robot;
     RobotMover robotMover;
 
     @Override
     public void runOpMode() {
+        robot = new Hardware(hardwareMap);
         robot.initDriveTrain();
         robot.initFourBar();
 
