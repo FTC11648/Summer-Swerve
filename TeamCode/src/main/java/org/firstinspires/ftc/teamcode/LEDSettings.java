@@ -57,27 +57,27 @@ public class LEDSettings implements Subsystem {
             team = 0;
         }
         else if (gamepad1.back) { //red teleop
-            Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.SHOT_RED);
+            Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.DARK_RED);
             team = 1;
 
 
         }
-        if (timer.seconds() > 10 && team == 0) {
+        if (timer.seconds() > 90 && team == 0) {
             Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_HEARTBEAT_SLOW);
         }
-         if (timer.seconds() > 20 && team == 0) {
+         if (timer.seconds() > 115 && team == 0) {
             Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_HEARTBEAT_MEDIUM);
         }
-         if (timer.seconds() > 30 && team == 0) {
+         if (timer.seconds() > 125 && team == 0) {
             Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_HEARTBEAT_FAST);
         }
-         if (timer.seconds() > 10 && team == 1) {
+         if (timer.seconds() > 90 && team == 1) {
             Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP2_HEARTBEAT_SLOW);
         }
-         if (timer.seconds() > 20 && team == 1) {
+         if (timer.seconds() > 115 && team == 1) {
             Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP2_HEARTBEAT_MEDIUM);
         }
-         if (timer.seconds() > 30 && team == 1) {
+         if (timer.seconds() > 125 && team == 1) {
             Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP2_HEARTBEAT_FAST);
         }
 

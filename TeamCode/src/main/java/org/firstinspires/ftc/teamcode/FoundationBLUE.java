@@ -43,7 +43,7 @@ public class FoundationBLUE extends LinearOpMode {
         robotMover.clampRight.setPosition(-0.8);
         sleep(500);
 
-        robotMover.encoderDrive(0.6, -31.5, -31.5, 0);
+        robotMover.encoderDrive(0.6, -36.5, -36.5, 0);
 
         robotMover.clampLeft.setPosition(0.6);
         robotMover.clampRight.setPosition(0.6);

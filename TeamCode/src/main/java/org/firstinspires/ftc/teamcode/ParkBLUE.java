@@ -1,13 +1,14 @@
 package org.firstinspires.ftc.teamcode;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 //This opmode will drag the foundation into the build zone if you are on the BLUE team
 
 @Autonomous(name="Foundation(RED)", group="Pushbot")
 
-public class FoundationRED extends LinearOpMode {
+public class ParkBLUE extends LinearOpMode {
     Hardware robot;
     RobotMover robotMover;
 
@@ -38,15 +39,7 @@ public class FoundationRED extends LinearOpMode {
         robotMover.encoderDrive(0.6, 31.5, 31.5, 0);
 
         //Grab foundation
-        robotMover.clampLeft.setPosition(-0.8);
-        robotMover.clampRight.setPosition(-0.8);
-        sleep(500);
-
-        robotMover.encoderDrive(0.6, -36.5, -36.5, 0);
-
-        robotMover.clampLeft.setPosition(0.6);
-        robotMover.clampRight.setPosition(0.6);
-
-        robotMover.encoderDrive(0.6, 0, 0, -50);
+        robotMover.encoderDrive(0.6, 2, 2, 0);
+        robotMover.encoderDrive(0.6, 0, 0, -30);
     }
 }
