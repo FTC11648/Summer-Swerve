@@ -47,6 +47,6 @@ public class FoundationRED extends LinearOpMode {
         robotMover.clampLeft.setPosition(0.6);
         robotMover.clampRight.setPosition(0.6);
 
-        robotMover.encoderDrive(0.6, 0, 0, -50);
+        //robotMover.encoderDrive(0.6, 0, 0, -50);
     }
 }
