@@ -153,7 +153,12 @@ public class Hardware
     }
     public void initBlinkinAuto(int team) { //0 is red, 1 is blue
         Lights = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
-        Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP2_LARSON_SCANNER);
+        if (team == 0) {
+            Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP2_LARSON_SCANNER);
+        }
+        else {
+            Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_LARSON_SCANNER);
+        }
     }
 
 

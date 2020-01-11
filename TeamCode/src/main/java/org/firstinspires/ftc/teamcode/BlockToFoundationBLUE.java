@@ -56,7 +56,7 @@ public class BlockToFoundationBLUE extends LinearOpMode {
         robot = new Hardware(hardwareMap);
         robot.initDriveTrain();
         robot.initFourBar();
-        robot.initBlinkinAuto(1);
+        robot.initBlinkinAuto(0);
 
         robotMover = new RobotMover(robot.leftDrive, robot.rightDrive, robot.centerDrive, robot.imu, robot.leftArm,robot.rightArm, robot.clampRight, robot.clampLeft);
 
@@ -84,18 +84,22 @@ public class BlockToFoundationBLUE extends LinearOpMode {
 
         // Step through each leg of the path,
         // Note: Reverse movement is obtained by setting a negative distance (not speed)
-        robotMover.grab(robot.RELEASE_POSITION);
+
+        //robotMover.encoderDrive(0.6, 31.5, 31.5, 0);
+        robotMover.clampRight.setPosition(0.6);
+        robotMover.clampLeft.setPosition(0.6);
+
         sleep(500);
 
         robotMover.encoderDrive(0.6, 31.5, 31.5, 0); // forward 31.5 inches
         robotMover.grab(robot.GRAB_POSITION);
         sleep(500);
+
         robotMover.rotate(104.15); // turn left 104.15 degrees
         robotMover.encoderDrive(0.6, 63.42, 63.42, 0); // forward 63.24 inches
-        robotMover.rotate(-14.15); // turn right 14.15 degrees
+        robotMover.rotate(- 14.15); // turn right 14.15 degrees
 
         robotMover.grab(robot.RELEASE_POSITION);
         sleep(500);
-
     }
 }

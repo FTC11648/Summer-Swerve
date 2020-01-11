@@ -45,8 +45,8 @@ public class BlockToBridgeRED extends LinearOpMode {
         sleep(500);
 
         //Grab foundation
-        robotMover.rotate(104.15);
+        robotMover.rotate(-104.15);
         robotMover.encoderDrive(0.6, 55, 55, 0);
-        robotMover.rotate(-14.15);
+        robotMover.rotate(14.15);
     }
 }
