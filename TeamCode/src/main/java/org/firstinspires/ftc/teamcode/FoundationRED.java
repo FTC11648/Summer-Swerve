@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -53,9 +54,12 @@ public class FoundationRED extends LinearOpMode {
 
     @Override
     public void runOpMode() {
+
         robot = new Hardware(hardwareMap);
         robot.initDriveTrain();
         robot.initFourBar();
+        robot.initBlinkinAuto(0);
+
 
 
         robotMover = new RobotMover(robot.leftDrive, robot.rightDrive, robot.centerDrive, robot.imu, robot.leftArm,robot.rightArm, robot.clampRight, robot.clampLeft);

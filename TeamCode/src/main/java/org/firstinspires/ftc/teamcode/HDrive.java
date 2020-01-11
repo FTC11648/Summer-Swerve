@@ -106,7 +106,12 @@ public class HDrive implements Subsystem {
         }
 
         // Output the safe vales to the motor drives.
-        if (gamepad1.left_bumper) {
+        if (gamepad1.right_bumper && gamepad1.left_bumper) {
+            leftDrive.setPower(left/4);
+            rightDrive.setPower(right/4);
+            centerDrive.setPower(center/4);
+        }
+        else if (gamepad1.left_bumper){
             leftDrive.setPower(left/2);
             rightDrive.setPower(right/2);
             centerDrive.setPower(center/2);

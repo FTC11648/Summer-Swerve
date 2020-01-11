@@ -119,6 +119,11 @@ public class FourBar implements Subsystem {
                 leftArm.setPosition(armOffset);
                 rightArm.setPosition(armOffset);
             }
+            else if (gamepad2.back) {
+                armOffset = 0.48;
+                leftArm.setPosition(armOffset);
+                rightArm.setPosition(armOffset);
+            }
 
 
 

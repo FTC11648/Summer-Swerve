@@ -29,6 +29,7 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -67,7 +68,7 @@ public class Hardware
     public Servo    clampLeft = null;
     public Servo    clampRight = null;
 
-    public Servo Lights = null;
+    public RevBlinkinLedDriver Lights = null;
 
     public BNO055IMU imu = null;
 
@@ -85,7 +86,8 @@ public class Hardware
         this.hwMap = hwMap;
         initDriveTrain();
         initFourBar();
-        //initBlinkin();
+        initBlinkinTeleOp();
+        initBlinkinAuto(0);
     }
 
     /* Initialize standard Hardware interfaces */
@@ -145,10 +147,13 @@ public class Hardware
         clampRight.setPosition(0.6);
 
     }
-    public void initBlinkin(){
+    public void initBlinkinTeleOp(){
     //Defines the LED which should be set to servos.
-        Lights = hwMap.get(Servo.class, "blinkin");
-
+        Lights = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
+    }
+    public void initBlinkinAuto(int team) { //0 is red, 1 is blue
+        Lights = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
+        Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP2_LARSON_SCANNER);
     }
 
 

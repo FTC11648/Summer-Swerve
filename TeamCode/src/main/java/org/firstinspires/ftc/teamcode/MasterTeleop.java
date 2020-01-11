@@ -30,12 +30,16 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.HardwareDeviceManager;
+import com.qualcomm.hardware.rev.RevBlinkinLedDriver;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+//import com.qualcomm.robotcore.hardware.LEDSettings;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import static android.os.SystemClock.sleep;
 
 /**
  * Demonstrates empty OpMode
@@ -50,10 +54,10 @@ public class MasterTeleop extends OpMode {
   HDrive HDrive;
   DriftDrive driftDrive;
   FourBar FourBar;
-  LEDSettings LEDSettings;
+  LEDSettings Lights;
   Gamepad gamepad;
   Hardware hardware;
-
+  HardwareMap hardware2;
   @Override
   public void init() {
     telemetry.addData("Status", "Initialized");
@@ -63,6 +67,7 @@ public class MasterTeleop extends OpMode {
 
     HDrive = new HDrive(gamepad1, hardware.leftDrive, hardware.rightDrive, hardware.centerDrive);
     FourBar = new FourBar(gamepad2, hardware.leftArm, hardware.rightArm, hardware.clampLeft, hardware.clampRight);
+    Lights = new LEDSettings(gamepad1, hardware.Lights);
   }
 
   /*
@@ -81,6 +86,8 @@ public class MasterTeleop extends OpMode {
   @Override
   public void start() {
     runtime.reset();
+
+
   }
 
   /*
@@ -89,18 +96,18 @@ public class MasterTeleop extends OpMode {
    */
   @Override
   public void loop() {
+    boolean endGame = false;
     telemetry.addData("Status", "Run Time: " + runtime.toString());
-    telemetry.addData("left running", + hardware.leftArm.getPosition());
-    telemetry.addData("right running", + hardware.rightArm.getPosition());
-    telemetry.addData("left running clamp", + hardware.clampLeft.getPosition());
-    telemetry.addData("right running clamp", + hardware.clampRight.getPosition());
-    telemetry.addData("arm offset", + FourBar.armOffset);
-    telemetry.addData("arm offset", + FourBar.clampOffset);
+    telemetry.addData("Arrm offset: ", + FourBar.armOffset);
+    telemetry.addData("Clamp offset: ", + FourBar.clampOffset);
 
     HDrive.update();
     FourBar.update();
+    Lights.update();
 
-    //driftDrive.update();
+
+
+
 
 
   }

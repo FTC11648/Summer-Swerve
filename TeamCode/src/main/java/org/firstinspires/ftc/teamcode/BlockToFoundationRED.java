@@ -56,6 +56,7 @@ public class BlockToFoundationRED extends LinearOpMode {
         robot = new Hardware(hardwareMap);
         robot.initDriveTrain();
         robot.initFourBar();
+        robot.initBlinkinAuto(0);
 
         robotMover = new RobotMover(robot.leftDrive, robot.rightDrive, robot.centerDrive, robot.imu, robot.leftArm,robot.rightArm, robot.clampRight, robot.clampLeft);
 
