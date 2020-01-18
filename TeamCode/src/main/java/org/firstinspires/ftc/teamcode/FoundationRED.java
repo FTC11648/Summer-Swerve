@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class FoundationRED extends LinearOpMode {
     Hardware robot;
     RobotMover robotMover;
+    FourBar fourBar;
 
     @Override
     public void runOpMode() {
@@ -30,21 +31,39 @@ public class FoundationRED extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        //Arm down to get the foundation
+        robotMover.arm(0.245);
+        sleep(250);
+
+
+        //Release for start
         robotMover.grab(robot.RELEASE_POSITION);
         sleep(500);
 
-        //Do the course
-        robotMover.encoderDrive(0.6, 31.5, 31.5, 0);
+        //Go right 18 inches
+        robotMover.encoderDrive(0.8,0,0,18, 3);
+
+        //Go forward to foundation
+        robotMover.encoderDrive(0.8, 31.5, 31.5, 0, 3);
 
         //Grab foundation
         robotMover.grab(robot.GRAB_POSITION);
         sleep(500);
 
-        robotMover.encoderDrive(0.6, -36.5, -36.5, 0);
+        //Back up with foundation
+        robotMover.encoderDrive(0.9, -33.5, -33.5, 0, 3);
 
+        //Release foundation and move up arm
         robotMover.grab(robot.RELEASE_POSITION);
+        robotMover.arm(0.257);
+
+        //Back into wall
+        robotMover.encoderDrive(0.4,-10,-10,0, 3);
+        robotMover.encoderDrive(0.8,2,2,0, 3);
+
+        //Park under skybridge
+        robotMover.encoderDrive(0.8, 2, 2, -85, 5);
 
 
-        robotMover.encoderDrive(0.6, 0, 0, -50);
     }
 }

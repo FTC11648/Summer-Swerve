@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 //This opmode will drag the foundation into the build zone if you are on the BLUE team
 
-@Autonomous(name="ParkBLUE", group="Pushbot")
+@Autonomous(name="goodauto", group="Pushbot")
 
 public class Straight extends LinearOpMode {
     Hardware robot;
@@ -38,7 +38,7 @@ public class Straight extends LinearOpMode {
 
 
         robotMover.encoderDrive(0.6, 140, 140, 0);
-
+        robotMover.encoderDrive(0.6, -70, -70, 0);
 
     }
 }

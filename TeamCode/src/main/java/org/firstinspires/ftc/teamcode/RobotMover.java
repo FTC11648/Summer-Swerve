@@ -190,9 +190,7 @@ public class RobotMover {
         return correction;
     }
 
-    public void encoderDrive(double speed,
-                             double leftInches, double rightInches,
-                             double centerInches) {
+    public void encoderDrive(double speed, double leftInches, double rightInches, double centerInches, double timeLimit ) {
         int newLeftTarget;
         int newRightTarget;
         int newCenterTarget;
@@ -224,7 +222,7 @@ public class RobotMover {
 
         while(((Math.abs(leftDrive.getCurrentPosition()-newLeftTarget))>2 ||
                 (Math.abs(centerDrive.getCurrentPosition()-newCenterTarget))>2 ||
-                (Math.abs(rightDrive.getCurrentPosition()-newRightTarget))>2) && runtime.seconds()<5 ) {
+                (Math.abs(rightDrive.getCurrentPosition()-newRightTarget))>2) && runtime.seconds()<3 ) {
             correction = getCorrection();
 
             leftDrive.setPower(Math.abs(speed));

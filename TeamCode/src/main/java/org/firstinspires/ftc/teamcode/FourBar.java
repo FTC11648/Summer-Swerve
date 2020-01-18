@@ -89,18 +89,18 @@ public class FourBar implements Subsystem {
             // Four bar movement
             if (gamepad2.right_bumper) {
                 armOffset = armOffset + ARM_SPEED;
-                armOffset = Range.clip(armOffset, 0.245, 0.76);
+                armOffset = Range.clip(armOffset, 0.257, 0.76);
                 leftArm.setPosition(armOffset);
                 rightArm.setPosition(armOffset);
             }
             else if (gamepad2.left_bumper) {
                 armOffset = armOffset - ARM_SPEED;
-                armOffset = Range.clip(armOffset, 0.245, 0.76);
+                armOffset = Range.clip(armOffset, 0.257, 0.76);
                 leftArm.setPosition(armOffset);
                 rightArm.setPosition(armOffset);
             }
             else if (gamepad2.a) {
-                armOffset = 0.245;
+                armOffset = 0.257;
                 leftArm.setPosition(armOffset);
                 rightArm.setPosition(armOffset);
             }

@@ -90,16 +90,16 @@ public class BlockToFoundationRED extends LinearOpMode {
         robotMover.arm(robot.ARM_DOWN);
 
 
-        robotMover.encoderDrive(0.6, 31.5, 31.5, 0); // forward 31.5 inches
+        robotMover.encoderDrive(0.6, 31.5, 31.5, 0,3); // forward 31.5 inches
         robotMover.grab(robot.GRAB_POSITION);
         sleep(500);
         robotMover.arm(robot.ARM_UP);
         sleep(500);
 
         robotMover.rotate(-100.15); // turn right 104.15 degrees
-        robotMover.encoderDrive(0.6, 63.42, 63.42, 0); // forward 63.24 inches
+        robotMover.encoderDrive(0.6, 63.42, 63.42, 0, 5); // forward 63.24 inches
         robotMover.rotate(24.15); // turn left 14.15 degrees
-        robotMover.encoderDrive(0.6, 5,5,0);
+        robotMover.encoderDrive(0.6, 5,5,0, 3);
         robotMover.grab(robot.RELEASE_POSITION);
         sleep(500);
 

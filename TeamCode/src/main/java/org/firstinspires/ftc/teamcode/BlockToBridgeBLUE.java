@@ -30,17 +30,29 @@ public class BlockToBridgeBLUE extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
+        //release for start
         robotMover.grab(robot.RELEASE_POSITION);
         sleep(500);
 
-        //Do the course
-        robotMover.encoderDrive(0.6, 31.5, 31.5, 0);
+        //Go forward
+        robotMover.encoderDrive(0.6, 31.5, 31.5, 0,3);
+
+        //Grab block
         robotMover.grab(robot.GRAB_POSITION);
         sleep(500);
 
-        //Grab foundation
-        robotMover.rotate(104.15);
-        robotMover.encoderDrive(0.6, 55, 55, 0);
-        robotMover.rotate(-14.15);
+        //Move arm up
+        robotMover.arm(robot.ARM_UP);
+        sleep(500);
+
+        //Back up 5 inches
+        robotMover.encoderDrive(0.6,-5,-5,0,3);
+
+        //Turn left 90 degrees
+        robotMover.rotate(90);
+
+        //Go forward and park under skybridge
+        robotMover.encoderDrive(0.6, 55, 55, 0,4);
+
     }
 }
