@@ -30,23 +30,21 @@ public class FoundationRED extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        robotMover.clampLeft.setPosition(0.6);
-        robotMover.clampRight.setPosition(0.6);
+        robotMover.grab(robot.RELEASE_POSITION);
         sleep(500);
 
         //Do the course
         robotMover.encoderDrive(0.6, 31.5, 31.5, 0);
 
         //Grab foundation
-        robotMover.clampLeft.setPosition(-0.8);
-        robotMover.clampRight.setPosition(-0.8);
+        robotMover.grab(robot.GRAB_POSITION);
         sleep(500);
 
         robotMover.encoderDrive(0.6, -36.5, -36.5, 0);
 
-        robotMover.clampLeft.setPosition(0.6);
-        robotMover.clampRight.setPosition(0.6);
+        robotMover.grab(robot.RELEASE_POSITION);
 
-        //robotMover.encoderDrive(0.6, 0, 0, -50);
+
+        robotMover.encoderDrive(0.6, 0, 0, -50);
     }
 }

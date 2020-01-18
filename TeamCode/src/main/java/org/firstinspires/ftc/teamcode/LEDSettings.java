@@ -33,6 +33,8 @@ public class LEDSettings implements Subsystem {
     Gamepad gamepad1;
     RevBlinkinLedDriver Lights;
     ElapsedTime timer = new ElapsedTime();
+    int team = 0; //1 is red, 0 is blue
+
 
     public LEDSettings(Gamepad gamepad1, RevBlinkinLedDriver Lights){
         this.gamepad1=gamepad1;
@@ -50,14 +52,13 @@ public class LEDSettings implements Subsystem {
 
     @Override
     public void update() {
-        int team = 0; //1 is red, 0 is blue
 
         if (gamepad1.start) { //blue teleop
             Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.BEATS_PER_MINUTE_OCEAN_PALETTE);
             team = 0;
         }
         else if (gamepad1.back) { //red teleop
-            Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.DARK_RED);
+            Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.COLOR_WAVES_LAVA_PALETTE);
             team = 1;
 
 

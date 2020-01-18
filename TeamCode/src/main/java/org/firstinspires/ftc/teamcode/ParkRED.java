@@ -39,10 +39,13 @@ public class ParkRED extends LinearOpMode {
         //robotMover.encoderDrive(0.6, 31.5, 31.5, 0);
 
         //Grab foundation
-        robotMover.encoderDrive(0.6, 0, 0, 2);
+        sleep(10000);
+        //robotMover.encoderDrive(0.6, 0, 0, 2);
 
-        robotMover.encoderDrive(0.6, 30, 30, 0);
+        robotMover.rotate(45);
 
-        robotMover.encoderDrive(0.6, 0, 0, -5);
+        robotMover.encoderDrive(0.6, 2, 2, 0);
+
+        robotMover.encoderDrive(0.6, 0, 0, -30);
     }
 }

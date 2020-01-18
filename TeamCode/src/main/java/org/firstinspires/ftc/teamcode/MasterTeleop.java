@@ -100,6 +100,8 @@ public class MasterTeleop extends OpMode {
     telemetry.addData("Status", "Run Time: " + runtime.toString());
     telemetry.addData("Arrm offset: ", + FourBar.armOffset);
     telemetry.addData("Clamp offset: ", + FourBar.clampOffset);
+    telemetry.addData("left ",  + FourBar.clampLeft.getPosition());
+    telemetry.addData("right ",  + FourBar.clampRight.getPosition());
 
     HDrive.update();
     FourBar.update();

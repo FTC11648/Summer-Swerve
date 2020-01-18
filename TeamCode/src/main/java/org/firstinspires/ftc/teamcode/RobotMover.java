@@ -57,9 +57,9 @@ public class RobotMover {
         rightArm.setPosition(armPosition);
     }
 
-    public void grab(double grabberPosition) {
-            leftArm.setPosition(grabberPosition);
-        rightArm.setPosition(grabberPosition);
+    public void grab(double clampPosition) {
+            clampLeft.setPosition(clampPosition);
+        clampRight.setPosition(clampPosition);
     }
 
     //Returns global angle

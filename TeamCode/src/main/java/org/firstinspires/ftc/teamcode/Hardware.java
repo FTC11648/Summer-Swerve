@@ -72,9 +72,11 @@ public class Hardware
 
     public BNO055IMU imu = null;
 
-    public static final double MID_SERVO         =  0.5 ;
-    public final double GRAB_POSITION = 0.6;
-    public final double RELEASE_POSITION = -0.8;
+    public static final double MID_SERVO         =  0.5;
+    public final double GRAB_POSITION = -0.5;
+    public final double RELEASE_POSITION = 0.5;
+    public final double ARM_UP = 0.3;
+    public final double ARM_DOWN = 0.245;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -87,7 +89,6 @@ public class Hardware
         initDriveTrain();
         initFourBar();
         initBlinkinTeleOp();
-        initBlinkinAuto(0);
     }
 
     /* Initialize standard Hardware interfaces */
@@ -104,6 +105,8 @@ public class Hardware
         rightDrive.setDirection(DcMotor.Direction.FORWARD);
         centerDrive.setDirection(DcMotor.Direction.REVERSE); //Set so positive is right and negative is left
 
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         centerDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
@@ -141,8 +144,8 @@ public class Hardware
 
         clampLeft.setDirection(Servo.Direction.REVERSE);
 
-        leftArm.setPosition(0.25);
-        rightArm.setPosition(0.25);
+        leftArm.setPosition(0.245);
+        rightArm.setPosition(0.245);
         clampLeft.setPosition(0.6);
         clampRight.setPosition(0.6);
 
