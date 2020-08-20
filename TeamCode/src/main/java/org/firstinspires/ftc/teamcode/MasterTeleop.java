@@ -51,10 +51,7 @@ public class MasterTeleop extends OpMode {
   private ElapsedTime runtime = new ElapsedTime();
 
 
-  HDrive HDrive;
-  DriftDrive driftDrive;
-  FourBar FourBar;
-  LEDSettings Lights;
+  SwerveDrive SwerveDrive;
   Gamepad gamepad;
   Hardware hardware;
   HardwareMap hardware2;
@@ -62,18 +59,15 @@ public class MasterTeleop extends OpMode {
   public void init() {
     telemetry.addData("Status", "Initialized");
     hardware = new Hardware(hardwareMap);
-
-    driftDrive = new DriftDrive(gamepad1, hardware.leftDrive, hardware.rightDrive, hardware.centerDrive, hardware.imu, hardware.leftArm, hardware.rightArm, hardware.clampRight, hardware.clampLeft);
-
-    HDrive = new HDrive(gamepad1, hardware.leftDrive, hardware.rightDrive, hardware.centerDrive);
-    FourBar = new FourBar(gamepad2, hardware.leftArm, hardware.rightArm, hardware.clampLeft, hardware.clampRight);
-    Lights = new LEDSettings(gamepad1, hardware.Lights);
+    SwerveDrive = new SwerveDrive(gamepad1, hardware.frontLeftDrive, hardware.backLeftDrive,
+            hardware.frontRightDrive, hardware.backRightDrive, hardware.frontLeftAngle,
+            hardware.backLeftAngle, hardware.frontRightAngle, hardware.backRightAngle);
   }
 
   /*
-     * Code to run when the op mode is first enabled goes here
-     * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
-     */
+   * Code to run when the op mode is first enabled goes here
+   * @see com.qualcomm.robotcore.eventloop.opmode.OpMode#start()
+   */
   @Override
   public void init_loop() {
     telemetry.addData("status", "loop test... waiting for start");
@@ -86,8 +80,6 @@ public class MasterTeleop extends OpMode {
   @Override
   public void start() {
     runtime.reset();
-
-
   }
 
   /*
@@ -98,19 +90,6 @@ public class MasterTeleop extends OpMode {
   public void loop() {
     boolean endGame = false;
     telemetry.addData("Status", "Run Time: " + runtime.toString());
-    telemetry.addData("Arrm offset: ", + FourBar.armOffset);
-    telemetry.addData("Clamp offset: ", + FourBar.clampOffset);
-    telemetry.addData("left ",  + FourBar.clampLeft.getPosition());
-    telemetry.addData("right ",  + FourBar.clampRight.getPosition());
-
-    HDrive.update();
-    FourBar.update();
-    Lights.update();
-
-
-
-
-
-
+    SwerveDrive.update();
   }
 }

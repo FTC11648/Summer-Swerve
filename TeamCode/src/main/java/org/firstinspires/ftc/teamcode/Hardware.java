@@ -59,24 +59,19 @@ import java.util.concurrent.locks.Lock;
 public class Hardware
 {
     /* Public OpMode members. */
-    public DcMotor  leftDrive   = null;
-    public DcMotor  rightDrive  = null;
-    public DcMotor  centerDrive = null;
+    public DcMotor  frontLeftDrive    = null;
+    public DcMotor  backLeftDrive     = null;
+    public DcMotor  frontRightDrive   = null;
+    public DcMotor  backRightDrive    = null;
 
-    public Servo    rightArm    = null;
-    public Servo    leftArm     = null;
-    public Servo    clampLeft = null;
-    public Servo    clampRight = null;
-
-    public RevBlinkinLedDriver Lights = null;
+    public Servo frontLeftAngle = null;
+    public Servo backLeftAngle = null;
+    public Servo frontRightAngle = null;
+    public Servo backRightAngle = null;
 
     public BNO055IMU imu = null;
 
     public static final double MID_SERVO         =  0.5;
-    public final double GRAB_POSITION = -0.5;
-    public final double RELEASE_POSITION = 0.5;
-    public final double ARM_UP = 0.3;
-    public final double ARM_DOWN = 0.245;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -87,38 +82,57 @@ public class Hardware
 
         this.hwMap = hwMap;
         initDriveTrain();
-        initFourBar();
-        initBlinkinTeleOp();
     }
 
     /* Initialize standard Hardware interfaces */
     public void initDriveTrain() {
 
         // Define and Initialize Motors
-        leftDrive  = hwMap.get(DcMotor.class, "left_drive");
-        rightDrive = hwMap.get(DcMotor.class, "right_drive");
-        centerDrive = hwMap.get(DcMotor.class, "center_drive");
+        frontLeftDrive  = hwMap.get(DcMotor.class, "front_left_drive");
+        backLeftDrive = hwMap.get(DcMotor.class, "back_left_drive");
+        frontRightDrive = hwMap.get(DcMotor.class, "front_right_drive");
+        backRightDrive = hwMap.get(DcMotor.class, "back_right_drive");
+
+
+
 
         imu = hwMap.get(BNO055IMU.class, "imu");
 
-        leftDrive.setDirection(DcMotor.Direction.REVERSE);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
-        centerDrive.setDirection(DcMotor.Direction.REVERSE); //Set so positive is right and negative is left
+        //Set so positive is right and negative is left
+        frontLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        backLeftDrive.setDirection(DcMotor.Direction.REVERSE);
+        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE);
 
-        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        centerDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // Set all motors to zero power
-        leftDrive.setPower(0);
-        rightDrive.setPower(0);
-        centerDrive.setPower(0);
+        frontLeftDrive.setPower(0);
+        backLeftDrive.setPower(0);
+        frontRightDrive.setPower(0);
+        backRightDrive.setPower(0);
+
 
         // Set all motors to run with encoders.
-        leftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        rightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        centerDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeftDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        frontRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backRightDrive.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+        //Define and initialize rotation servos
+        frontLeftAngle  = hwMap.get(Servo.class, "front_left_angle");
+        backLeftAngle  = hwMap.get(Servo.class, "back_left_angle");
+        frontRightAngle  = hwMap.get(Servo.class, "front_right_angle");
+        backRightAngle  = hwMap.get(Servo.class, "back_right_angle");
+
+        frontLeftAngle.setPosition(0.5);
+        backLeftAngle.setPosition(0.5);
+        frontRightAngle.setPosition(0.5);
+        backRightAngle.setPosition(0.5);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.mode = BNO055IMU.SensorMode.IMU;
@@ -127,49 +141,6 @@ public class Hardware
         parameters.loggingEnabled = false;
 
         imu.initialize(parameters);
-
-
-
     }
-
-    public void initFourBar()
-    {
-        // Define and initialize ALL installed servos.
-        leftArm  = hwMap.get(Servo.class, "left_arm");
-        rightArm = hwMap.get(Servo.class, "right_arm");
-        clampLeft = hwMap.get(Servo.class, "clamp_left");
-        clampRight = hwMap.get(Servo.class, "clamp_right");
-
-
-
-        clampLeft.setDirection(Servo.Direction.REVERSE);
-
-        leftArm.setPosition(0.257);
-        rightArm.setPosition(0.257);
-        clampLeft.setPosition(0.6);
-        clampRight.setPosition(0.6);
-
-    }
-    public void initBlinkinTeleOp(){
-    //Defines the LED which should be set to servos.
-        Lights = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
-    }
-    public void initBlinkinAuto(int team) { //0 is red, 1 is blue
-        Lights = hwMap.get(RevBlinkinLedDriver.class, "blinkin");
-        if (team == 0) {
-            Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP2_LARSON_SCANNER);
-        }
-        else {
-            Lights.setPattern(RevBlinkinLedDriver.BlinkinPattern.CP1_LARSON_SCANNER);
-        }
-    }
-
-
-
-
-
-
-
-
- }
+}
 
